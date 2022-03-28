@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance {get; set;}
+    // ENCAPSULATION - don't want GameManager to be null so private set
+    public static GameManager Instance {get; private set;}
     public int score = 0;
-    public int numMissedVegetables = 0;
+    public TextMeshProUGUI scoreText;
+    public int lives = 3;
+    public TextMeshProUGUI livesText;
+    [SerializeField] GameObject gameOverScreen;
     private float startDelay = 1.0f;
     private float repeatRate = 1.0f;
-    public List<GameObject> vegetablesList;
+    [SerializeField] List<GameObject> vegetablesList;
 
     // Range of positions for new vegetables
     private float xRange = 16;
     private float zRange = 8;
     private float yPosition = 1;
-    private int maxMissedVegetables = 3; // If miss this many vegetables, lose game
 
     private void Start() 
     {
@@ -28,6 +32,9 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         InvokeRepeating("PlantSeed", startDelay, repeatRate);
+
+        scoreText.SetText($"Score: {score}");
+        livesText.SetText($"Lives: {lives}");
     }
 
     private void PlantSeed()
@@ -45,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     private void Update() 
     {
-        if (numMissedVegetables >= maxMissedVegetables)
+        if (lives <= 0)
         {
             EndGame();
         }
@@ -54,5 +61,6 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         CancelInvoke();
+        gameOverScreen.SetActive(true);
     }
 }

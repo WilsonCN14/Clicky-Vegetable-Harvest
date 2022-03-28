@@ -6,7 +6,7 @@ public class Garlic : Vegetable
 {
     public Garlic()
     {
-        timeToDie = 2.0f;
+        timeToDie = 4.0f;
         pointsForVegetable = 10;
     }
 }

@@ -6,7 +6,7 @@ public class Tomato : Vegetable
 {
     public Tomato()
     {
-        timeToDie = 0.5f;
+        timeToDie = 1.0f;
         pointsForVegetable = 25;
     }
 }
